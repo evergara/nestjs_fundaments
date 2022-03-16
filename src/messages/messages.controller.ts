@@ -9,9 +9,12 @@ import {
 } from '@nestjs/common';
 
 import { CreateMessageDTO } from './dto/create-message-dto';
+import { MessageService } from './service/message.service';
 
 @Controller('messages')
 export class MessagesController {
+  constructor(private messageService: MessageService) {}
+
   @Post()
   create(@Body() createMessageDto: CreateMessageDTO) {
     return `Mensaje creaso ${createMessageDto.message}`;
