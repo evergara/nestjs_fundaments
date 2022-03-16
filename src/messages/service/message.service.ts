@@ -6,14 +6,15 @@ import { Message } from '../entities/message.entity';
 
 @Injectable()
 export class MessageService {
-  constructor(@InjectRepository(Message)
+  constructor(
+    @InjectRepository(Message)
     private messageRepository: Repository<Message>,
   ) {}
 
   getAll(): Promise<Message[]> {
     return this.messageRepository.find();
   }
-  
+
   createMessage(message: CreateMessageDTO): Promise<Message> {
     const newMessage: Message = new Message();
     newMessage.mensaje = message.message;
@@ -26,7 +27,10 @@ export class MessageService {
     return this.messageRepository.findOne(id);
   }
 
-  async updateMessage(idMessage: string, message: CreateMessageDTO) {
+  async updateMessage(
+    idMessage: string,
+    message: CreateMessageDTO,
+  ): Promise<Message> {
     const updateMessage = await this.messageRepository.findOne(idMessage);
     updateMessage.mensaje = message.message;
     updateMessage.nick = message.nick;
